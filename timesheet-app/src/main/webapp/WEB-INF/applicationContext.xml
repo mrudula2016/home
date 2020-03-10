@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+	<!-- Enable Spring Annotation Configuration -->
+	<context:annotation-config />
+
+	<!-- Session Factory Declaration -->
+	<bean id="SessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="DataSource" ref="DataSource"></property>
+		<property name="annotatedClasses">
+			<list>
+			<value>com.mrudula.model.PersonDTO</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- <prop key="hibernate.dialect"> com.hxtt.support.hibernate.HxttAccessDialect 
+					</prop> -->
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.connection.driver_class">
+
+				</prop>
+				<prop key="hibernate.connection.url">
+
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="DataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/mydb">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="tiger"></property>
+	</bean>
+
+	<!-- Enable the configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven
+		transaction-manager="txManager" />
+
+	<!-- Transaction Manager is defined -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+
+	<bean id="pss" class="com.mrudula.service.Personservice">
+		<property name="persondao" ref="Dao"></property>
+	</bean>
+
+	<bean id="Dao" class="com.mrudula.dao.PersonDAOimpl">
+		<property name="sf" ref="SessionFactory"></property>
+	</bean>
+
+</beans>
+ 
