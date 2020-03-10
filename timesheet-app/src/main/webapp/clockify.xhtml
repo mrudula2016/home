@@ -6,13 +6,21 @@
 	<title>Clockify Registration page</title>
 </h:head>
 <h:body>
-<h:form id="page">
+	<h:form id="page">
 		<h:panelGrid columns="2" cellpadding="2" width="600px">
-<!-- 		//	<h:outputLabel value="id"></h:outputLabel> -->
-<!-- 		//	<p:inputText value="#{person.persondto.id}"></p:inputText> -->
+			<h:outputLabel value="id"></h:outputLabel>
+			<p:inputText value="#{Clockify.timesheetDto.id}"></p:inputText>
+			<h:outputLabel value="name"></h:outputLabel>
+			<p:inputText value="#{Clockify.timesheetDto.name}"></p:inputText>
 			<h:outputLabel value="Enter Email"></h:outputLabel>
-			<p:inputText value="#{TimesheetUi.TimesheetDto.name}"></p:inputText>
+			<p:inputText value="#{Clockify.timesheetDto.emailId}"></p:inputText>
 			<h:outputLabel value="Choose password"></h:outputLabel>
-			<p:inputText value="#{TimesheetUi.TimesheetDto.password}"></p:inputText>
-			<p:commandButton value="create free account" action="#{clockify.addDataUi}"/>
-			<p:commandButton value="continue with google" action="#{clockify.addDataUi}"/>
+			<p:inputText value="#{Clockify.timesheetDto.password}"></p:inputText>
+			<p:commandButton value="create free account"
+				action="#{Clockify.addDataUi}" />
+			<p:commandButton value="continue with google"
+				action="#{Clockify.addDataUi}" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

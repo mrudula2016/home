@@ -6,11 +6,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import office.timesheet.service.TimesheetService;
-@ManagedBean(name="clockify")
+@ManagedBean(name="Clockify")
 public class TimesheetUi {
 	@ManagedProperty(value = "#{tss}")
 	private TimesheetService timesheetservice;
-	private TimesheetDto timesheetDto;
+	private TimesheetDto timesheetDto=new TimesheetDto();
 	private List<TimesheetDto> dto;
 
 	public List<TimesheetDto> getDto() {

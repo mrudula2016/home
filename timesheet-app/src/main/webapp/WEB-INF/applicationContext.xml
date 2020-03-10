@@ -19,7 +19,7 @@
 		<property name="DataSource" ref="DataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-			<value>com.mrudula.model.PersonDTO</value>
+			<value>office.timesheet.ui.TimesheetDto</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -61,11 +61,11 @@
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
 
-	<bean id="pss" class="com.mrudula.service.Personservice">
-		<property name="persondao" ref="Dao"></property>
+	<bean id="tss" class="office.timesheet.service.TimesheetService">
+		<property name="timesheetDao" ref="Dao"></property>
 	</bean>
 
-	<bean id="Dao" class="com.mrudula.dao.PersonDAOimpl">
+	<bean id="Dao" class="office.timesheet.dao.TimesheetDao">
 		<property name="sf" ref="SessionFactory"></property>
 	</bean>
 
