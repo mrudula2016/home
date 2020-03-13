@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Clockify Registration page</title>
+</h:head>
+<p:panel id="TitlePanel">
+	<f:facet name="header" center="true">
+		<p:outputLabel value="#{pageTitle}" />
+	</f:facet>
+    welcome to clocify
+</p:panel>
+<h:body style="background-color:#33CAFF;">
+	<h:form id="page">
+		<h:panelGrid columns="2" cellpadding="2" width="600px">
+			<h:outputLabel value="Name"></h:outputLabel>
+			<p:inputText value="#{Clockify.timesheetDto.name}" />
+			<h:outputLabel value="Password"></h:outputLabel>
+			<p:inputText value="#{Clockify.timesheetDto.password}"></p:inputText>
+			<p:commandButton value="Submit" action="#{Clockify.fetchUi}" />
+			<p:commandButton value="continue with google" action="#{Clockify.fetchUi}" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

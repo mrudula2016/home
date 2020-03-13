@@ -5,18 +5,31 @@
 <h:head>
 	<title>Clockify Registration page</title>
 </h:head>
+<p:panel id="TitlePanel">
+	<f:facet name="header" center="true">
+		<p:outputLabel value="#{pageTitle}" />
+	</f:facet>
+    welcome to clocify
+</p:panel>
 <h:body>
+<p:messages id="msgs" />
 	<h:form id="page">
-		<h:panelGrid columns="2" cellpadding="2" width="600px">
-			<h:outputLabel value="id"></h:outputLabel>
-			<p:inputText value="#{Clockify.timesheetDto.id}"></p:inputText>
-			<h:outputLabel value="name"></h:outputLabel>
-			<p:inputText value="#{Clockify.timesheetDto.name}"></p:inputText>
+		<h:panelGrid columns="3" cellpadding="2" width="600px" style="margin-left:200px">
+			<h:outputLabel value="Name"></h:outputLabel>
+			<p:inputText id="name" value="#{Clockify.timesheetDto.name}" required="true">
+			<f:validateLength minimum="3" maximum="10" />
+			</p:inputText>
+			<p:message for="name" />
+			
 			<h:outputLabel value="Enter Email"></h:outputLabel>
-			<p:inputText value="#{Clockify.timesheetDto.emailId}"></p:inputText>
+			<p:inputText id="ema" value="#{Clockify.timesheetDto.emailId}"></p:inputText>
+			<p:message for="ema" />
+			
 			<h:outputLabel value="Choose password"></h:outputLabel>
-			<p:inputText value="#{Clockify.timesheetDto.password}"></p:inputText>
-			<p:commandButton value="create free account"
+			<p:password id="pass" value="#{Clockify.timesheetDto.password}"></p:password>
+			<p:message for="pass" />
+			
+			<p:commandButton value="create free account" ajax="false"
 				action="#{Clockify.addDataUi}" />
 			<p:commandButton value="continue with google"
 				action="#{Clockify.addDataUi}" />
