@@ -27,10 +27,10 @@ public class TimesheetDto {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(unique = true ,nullable = false)
 	private String name;
 	private String emailId;
 	private String password;
-
 	public String getName() {
 		return name;
 	}

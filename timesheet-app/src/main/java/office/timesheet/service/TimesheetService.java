@@ -7,8 +7,7 @@ import office.timesheet.ui.TimesheetDto;
 
 public class TimesheetService {
 	private TimesheetDao timesheetDao;
-	private TimesheetDto dto;
-
+	
 	public TimesheetDao getTimesheetDao() {
 		return timesheetDao;
 	}
@@ -18,14 +17,25 @@ public class TimesheetService {
 	}
 
 	@Transactional
-	public void addDataService(TimesheetDto dtoService) {
-		timesheetDao.addDataDao(dtoService);
+	public boolean addDataService(TimesheetDto dtoService) {
+		Boolean Result=	timesheetDao.addDataDao(dtoService);
+		return Result;
 	}
 
 	@Transactional
 	public boolean fetchDataService(String name, String password) {
-		TimesheetDto tDto = timesheetDao.fetchDataDao(name, password);
-		if (tDto.getPassword().equals(password)) {
+		TimesheetDto tDto = timesheetDao.fetchDataDao(name);
+		if (tDto !=null && tDto.getPassword().equals(password)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean getNameData(String name)
+	{
+		TimesheetDto tDto = timesheetDao.fetchDataDao(name);
+		if (tDto !=null) {
 			return true;
 		} else {
 			return false;

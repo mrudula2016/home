@@ -16,8 +16,8 @@
 		<h:panelGrid columns="2" cellpadding="2" width="600px">
 			<h:outputLabel value="Name"></h:outputLabel>
 			<p:inputText value="#{Clockify.timesheetDto.name}" />
-			<h:outputLabel value="Password"></h:outputLabel>
-			<p:inputText value="#{Clockify.timesheetDto.password}"></p:inputText>
+			<h:outputLabel value="Choose password"></h:outputLabel>
+			<p:password id="pass" value="#{Clockify.timesheetDto.password}"></p:password>
 			<p:commandButton value="Submit" action="#{Clockify.fetchUi}" />
 			<p:commandButton value="continue with google" action="#{Clockify.fetchUi}" />
 		</h:panelGrid>

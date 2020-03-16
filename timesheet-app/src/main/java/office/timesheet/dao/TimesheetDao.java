@@ -8,14 +8,17 @@ import office.timesheet.ui.TimesheetDto;
 
 public class TimesheetDao {
 	private SessionFactory sf;
-	private TimesheetDto timesheetDto;
+	public boolean addDataDao(TimesheetDto timesheetDto) {
+		TimesheetDto tsd =fetchDataDao(timesheetDto.getName());
+		
+		if (tsd !=null) {
+			System.out.println("same name");
+			return false;
 
-	public void addDataDao(TimesheetDto timesheetDao) {
-		// timesheetDao.setId(timesheetDao.getId());
-		timesheetDao.setName(timesheetDao.getName());
-		timesheetDao.setEmailId(timesheetDao.getEmailId());
-		timesheetDao.setPassword(timesheetDao.getPassword());
-		sf.getCurrentSession().save(timesheetDao);
+		} else {
+			sf.getCurrentSession().save(timesheetDto);
+			return true;
+		}
 	}
 
 	public SessionFactory getSf() {
@@ -26,13 +29,15 @@ public class TimesheetDao {
 		this.sf = sf;
 	}
 
-	public TimesheetDto fetchDataDao(String entryname, String password) {
+	public TimesheetDto fetchDataDao(String entryname) {
 		Session session = sf.getCurrentSession();
 		Query qry = session.getNamedQuery("timesht.fetchUserDetails");
 		qry.setParameter("uname", entryname);
 		TimesheetDto tDto = (TimesheetDto) qry.uniqueResult();
-		System.out.println(tDto.getPassword());
-		System.out.println(tDto.getName());
+		if (tDto != null) {
+			System.out.println(tDto.getPassword());
+			System.out.println(tDto.getName());
+		}
 		return tDto;
 	}
 }
