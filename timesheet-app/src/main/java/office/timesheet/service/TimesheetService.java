@@ -32,6 +32,8 @@ public class TimesheetService {
 		}
 	}
 	
+	
+	@Transactional
 	public boolean getNameData(String name)
 	{
 		TimesheetDto tDto = timesheetDao.fetchDataDao(name);

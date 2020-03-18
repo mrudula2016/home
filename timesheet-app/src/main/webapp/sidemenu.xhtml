@@ -6,28 +6,43 @@
 	<title>Clockify Registration page</title>
 </h:head>
 <h:body>
-<h:form> 
-<p:growl id="messages" showDetail="true" />
-	<p:tieredMenu style="width:200px">
-		<p:submenu label="Ajax Menuitems" icon="pi pi-refresh">
-			<p:menuitem value="Save" action="#{Clockify.addDataUi}" update="messages"
-				icon="pi pi-save" />
-			<p:menuitem value="Update" action="#{Clockify.addDataUi}"
-				update="messages" icon="pi pi-refresh" />
-		</p:submenu>
-		<p:submenu label="Non-Ajax Menuitem" icon="pi pi-clone">
-			<p:menuitem value="Delete" action="#{Clockify.addDataUi}"
-				update="messages" ajax="false" icon="pi pi-times" />
-		</p:submenu>
-		<p:separator />
-		<p:submenu label="Navigations" icon="pi pi-home">
-			<p:submenu label="Prime Links">
-				<p:menuitem value="Prime" url="http://www.prime.com.tr" title="xxx" />
-				<p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
+	<h:form>
+		<p:growl id="messages" showDetail="true" />
+		<p:tieredMenu style="width:200px">
+			<p:submenu label="gmail" icon="pi pi-refresh">
+				<p:menuitem value="gmail work active" action="#{Clockify.addDataUi}"
+					update="messages" icon="pi pi-save" />
+				<p:menuitem value="profile settings" action="#{Clockify.addDataUi}"
+					update="messages" icon="pi pi-refresh" />
+				<p:menuitem value="Logout" action="#{Clockify.addDataUi}"
+					update="messages" icon="pi pi-refresh" />
+					</p:submenu>
+					<p:separator />
+				<p:menuitem value="TIME TRACKER" />
+				<p:menuitem value="DASHBOARD" />
+			<p:submenu label="Reports" icon="pi pi-clone">
+				<p:menuitem value="summary" action="#{Clockify.addDataUi}"
+					update="messages" ajax="false" icon="pi pi-times" />
+				<p:menuitem value="detailed" action="#{Clockify.addDataUi}"
+					update="messages" ajax="false" icon="pi pi-times" />
+				<p:menuitem value="weekly" action="#{Clockify.addDataUi}"
+					update="messages" ajax="false" icon="pi pi-times" />
+					<p:menuitem value="saved" action="#{Clockify.addDataUi}"
+					update="messages" ajax="false" icon="pi pi-times" />
 			</p:submenu>
-			<p:menuitem value="Mobile" />
-		</p:submenu>
-	</p:tieredMenu>
+			<p:separator />
+			<p:menuitem value="PROJECTS" />
+			<p:menuitem value="TEAM" />
+			<p:menuitem value="CLIENTS" />
+			<p:menuitem value="TAGS" />
+			<p:menuitem value="WORKSPACE" />
+			<p:submenu label="supports" icon="pi pi-home">
+					<p:menuitem value="help" url="http://www.prime.com.tr" title="xxx" />
+					<p:menuitem value="tutorials" url="http://www.primefaces.org" />
+				</p:submenu>
+				<p:separator />
+				<p:menuitem value="upgrade" />
+		</p:tieredMenu>
 	</h:form>
 </h:body>
 

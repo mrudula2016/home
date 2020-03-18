@@ -5,9 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
-
 <f:view contentType="text/html" id="fview">
-
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Euro Hotels</title>
 	<!-- <ui:debug /> -->
@@ -16,30 +14,25 @@
 	</f:metadata>
 	<h:head>
 	<h:outputStylesheet name="css/theme.css" />
-
 		<p:layout fullPage="true" resizeTitle="resize"
-			style="background-color:#FFFFFF;">
-			<p:layoutUnit position="north" size="85" id="north" collapsible="true">
+			style="background-color:#4c4c4c">
+			<p:layoutUnit position="north" size="120" id="north" collapsible="flase">
 				<ui:include src="header.xhtml" />
 			</p:layoutUnit>
-
 			<p:layoutUnit position="west" id="west" resizable="false"
-				header="Menu" style="height:580px;overflow:hidden;" collapsible="true"
-				size="200">
-				<ui:include src="main.xhtml" />
+				header="Menu" style="height:580px;overflow:hidden;" collapsible="flase"
+				size="400">
+				<ui:include src="sidemenu.xhtml" />
 			</p:layoutUnit>
-
 			<p:layoutUnit styleClass="layoutUnitCenter" position="center">
 				<p:ajaxStatus style="width:16px;height:16px;">
 					<f:facet name="start">
-						<p:graphicImage name="images/logo.gif" /> 
+						<p:graphicImage name="images/Clockify-logo1.jpg" />
 					</f:facet>
-
 					<f:facet name="complete">
 						<h:outputText value="" />
 					</f:facet>
 				</p:ajaxStatus>
-
 				<h:form id="mainForm">
 					<p:messages autoUpdate="true" id="msgs" showDetail="false"
 						showSummary="true" />
@@ -47,15 +40,13 @@
 				</h:form>
 			</p:layoutUnit>
 		</p:layout>
-
 		<p:dialog modal="true" widgetVar="statusDialog" showHeader="false"
 			draggable="false" closable="false" resizable="false" visible="false"
 			position="center" maximizable="false" minimizable="false">
-			<p:graphicImage name="images/logo.gif" /> 
+			<p:graphicImage name="images/Clockify-logo1.jpg" /> 
 		</p:dialog>
 	</h:head>
 	<h:body onload="statusDialog.hide();">
 	</h:body>
-
 </f:view>
 </html>
