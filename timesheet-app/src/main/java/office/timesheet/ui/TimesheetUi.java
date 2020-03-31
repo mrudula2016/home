@@ -14,7 +14,25 @@ import office.timesheet.service.TimesheetService;
 public class TimesheetUi {
 	@ManagedProperty(value = "#{tss}")
 	private TimesheetService timesheetservice;
+
+	private String userNameError = "No value Here";
+
 	private TimesheetDto timesheetDto = new TimesheetDto();
+
+	public void setErrorMsg(boolean userExists) {
+		if (userExists) {
+			userNameError = "User name already exists";
+		} else {
+			userNameError = "";
+		}
+	}
+
+	public void checkUser() {
+		// call goes to db to check user existnce, and retrun boolean value.
+		boolean dbResult = timesheetservice.checkUserExistence(timesheetDto.getName());
+		// use that boolean flag to show the error message by calling setErrorMsg method
+		setErrorMsg(dbResult);
+	}
 
 	public TimesheetDto getTimesheetDto() {
 		return timesheetDto;
@@ -53,4 +71,13 @@ public class TimesheetUi {
 	public void getNameDataUi() {
 		Boolean result = timesheetservice.getNameData(timesheetDto.getName());
 	}
+
+	public String getUserNameError() {
+		return userNameError;
+	}
+
+	public void setUserNameError(String userNameError) {
+		this.userNameError = userNameError;
+	}
+
 }

@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:form>
+	<p:menu style="border: 0;">
+		<p:menuitem value="Home Page" icon="ui-icon-home" style="float:left"
+			outcome="/pages/home.xhtml">
+		</p:menuitem>
+		<p:submenu label="SALES ENTRY"
+			rendered="#{eUROManagedBean.headOfficeRole() or eUROManagedBean.hotelRole() or eUROManagedBean.hotelManagerRole() or eUROManagedBean.accountsRole()}">
+			<p:menuitem value="Room Sales Entry Old" rendered="#{eUROManagedBean.headOfficeRole() or eUROManagedBean.accountsRole()}"
+				outcome="/pages/dailySalesMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Room Sales Entry_New" rendered="#{!eUROManagedBean.accountsRole()}"
+				outcome="/pages/dailyRoomSalesMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Bar Sales Entry"
+				outcome="/pages/barSalesMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Breakfast Sales Entry"
+				outcome="/pages/breakfastSalesMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Refunds Entry"
+				outcome="/pages/refundsMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Advance Booking Entry"
+				outcome="/pages/advBookingMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Function Hall Entry"
+				outcome="/pages/functionHalSaleMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Room Transfer Entry"
+				outcome="/pages/roomTransferMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Other Income Entry"
+				outcome="/pages/otherIncomeMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Room Sales Search"
+				rendered="#{!eUROManagedBean.accountsRole()}"
+				outcome="/pages/roomSalesSearch.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Download Daily Sales"
+				outcome="/pages/fileDownload.xhtml">
+			</p:menuitem>
+		</p:submenu>
+		<p:submenu label="SALES REPORTS"
+			rendered="#{eUROManagedBean.accountsRole()}">
+			<p:menuitem value="Comparison Report"
+				outcome="/pages/comparisonReport.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Commission Report"
+				outcome="/pages/commissionReport.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Occupancy Report"
+				outcome="/pages/occupancyReport.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Outstanding Report"
+				outcome="/pages/outstandingMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Report Submit Status"
+				outcome="/pages/dailyReportStatus.xhtml">
+			</p:menuitem>
+		</p:submenu>
+		<p:submenu label="SALES REPORTS"
+			rendered="#{eUROManagedBean.headOfficeRole()}">
+			<p:menuitem value="Upload Daily Sales"
+				outcome="/pages/fileUpload.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Availability Report"
+				outcome="/pages/availabilityReportMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Booking Source Report"
+				outcome="/pages/sourceMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Comparison Report"
+				outcome="/pages/comparisonReport.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Commission Report"
+				outcome="/pages/commissionReport.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Occupancy Report"
+				outcome="/pages/occupancyReport.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Outstanding Report"
+				outcome="/pages/outstandingMainEntry.xhtml">
+			</p:menuitem>
+		</p:submenu>
+		<p:submenu label="INVOICE"
+			rendered="#{eUROManagedBean.headOfficeRole()}">
+			<p:menuitem value="Invoice Generatation_OLD"
+				outcome="/pages/invoiceReport.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Invoice Generatation_NEW"
+				outcome="/pages/invoiceGenerationMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="New Daily Room Sales"
+				outcome="/pages/dailyRoomSalesMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Invoice Summary Report"
+				outcome="/pages/invoiceSummaryMainEntry.xhtml">
+			</p:menuitem>
+		</p:submenu>
+		<p:submenu label="ACCOUNTS"
+			rendered="#{eUROManagedBean.headOfficeRole() or eUROManagedBean.accountsRole()}">
+			<p:menuitem value="Banking Report"
+				outcome="/pages/bankingReport.xhtml">
+			</p:menuitem>
+		</p:submenu>
+		<p:submenu label="MAINTENANCE"
+			rendered="#{eUROManagedBean.headOfficeRole()}">
+			<p:menuitem value="Sub Hotel Entry"
+				outcome="/pages/subhotelMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Rooms Entry" outcome="/pages/roomMainEntry.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Report Submit Status"
+				outcome="/pages/dailyReportStatus.xhtml">
+			</p:menuitem>
+			<p:menuitem value="Users List"
+				outcome="/pages/users.xhtml">
+			</p:menuitem>
+		</p:submenu>
+
+		<p:submenu label="Purchasing Portal"
+			rendered="#{eUROManagedBean.purchaseRole() or eUROManagedBean.hotelManagerRole()}">
+			<p:menuitem value="Purchase Order Report"
+				outcome="/pages/purchaseOrderMainEntry.xhtml">
+			</p:menuitem>
+		</p:submenu>
+	</p:menu>
+</h:form>
+</html>

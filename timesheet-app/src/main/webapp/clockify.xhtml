@@ -16,10 +16,12 @@
 	<h:form id="page">
 		<h:panelGrid columns="3" cellpadding="2" width="600px" style="margin-left:200px">
 			<h:outputLabel value="Name"></h:outputLabel>
-			<p:inputText id="name" value="#{Clockify.timesheetDto.name}" required="true">
-			<f:validateLength minimum="3" maximum="10" />
+			<p:inputText id="name" value="#{Clockify.timesheetDto.name}"
+				required="true">
+				<f:validateLength minimum="3" maximum="10" />
+				<p:ajax event="keyup" update="showVal" listener="#{Clockify.checkUser}" />
 			</p:inputText>
-			<p:message for="name" />
+			<h:outputLabel id="showVal" value="#{Clockify.userNameError}"></h:outputLabel>
 			
 			<h:outputLabel value="Enter Email"></h:outputLabel>
 			<p:inputText id="ema" value="#{Clockify.timesheetDto.emailId}"></p:inputText>

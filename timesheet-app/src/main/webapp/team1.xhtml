@@ -1,0 +1,52 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="alltogether.xhtml">
+
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="form">
+			<h:panelGrid columns="2" cellpadding="2" width="1200px">
+				<p:tabMenu activeIndex="#{param.i}">
+					<p:menuitem value="MEMBERS" url="/members.jsf">
+						<f:param name="i" value="0" />
+					</p:menuitem>
+					<p:menuitem value="GROUPS" url="/groups.jsf">
+						<f:param name="i" value="0" />
+					</p:menuitem>
+					<p:menuitem value="REMINDERS" url="/jsf/Requests.jsf">
+						<f:param name="i" value="0" />
+					</p:menuitem>
+				</p:tabMenu>
+
+			</h:panelGrid>
+			<h:selectOneMenu value="Show all">
+				<f:selectItem itemLabel="Show all" />
+				<f:selectItem itemLabel="Show inctive" itemValue="ind" />
+				<f:selectItem itemLabel="Show inactive" itemValue="uk" />
+				<f:selectItem itemLabel="Show invited" itemValue="us" />
+
+				<!-- 				<h3>Floating Label</h3> -->
+				<!-- 				<span class="ui-float-label"> <p:inputText id="float-input" -->
+				<!-- 						value="#{member.text}" /> <p:outputLabel for="@previous" -->
+				<!-- 						value="search by name or email" /> -->
+				<!-- 				</span> -->
+			</h:selectOneMenu>
+			<p:commandButton value="member" ajax="false"
+				action="#{memberManagedBean.membersInfo}" />
+			<p:dataTable var="details"
+				value="#{memberManagedBean.timesheetDtoResult}">
+				<p:column headerText="Name">
+					<h:outputText value="#{details.name}" />
+				</p:column>
+				<p:column headerText="Emailid">
+					<h:outputText value="#{details.emailId}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

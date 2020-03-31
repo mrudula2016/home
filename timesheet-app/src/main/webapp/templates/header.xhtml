@@ -4,7 +4,6 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<style type="text/css">
-	
 .ui-layout-north {
 	overflow: hidden !important;
 }
@@ -16,9 +15,12 @@
 	<title>User Registration</title>
 </h:head>
 <h:body>
-	<h:panelGrid columns="2" id="grid" styleClass="headerFieldsStyle"
-		cellpadding="2">
-		<p:graphicImage name="images/Clockify-logo1.jpg"  height="145" width="155" />
+	<h:panelGrid columns="3" id="grid" styleClass="headerFieldsStyle"
+		cellpadding="3">
+		<p:graphicImage name="images/logo.jpg"
+			style="width:30%; margin-left: 40px;" />
+		<p:graphicImage name="images/EuroName.jpg" />
+		<h:outputLink value="#{request.contextPath}/j_spring_security_logout">Logout</h:outputLink>
 	</h:panelGrid>
 </h:body>
 </html>

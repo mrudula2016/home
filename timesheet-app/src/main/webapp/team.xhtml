@@ -1,0 +1,65 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="alltogether.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet name="home.css" library="css" />
+		<h:form id="testForm">
+			<p:tabView>
+				<p:tab title="Members">
+					<h:panelGrid id="grid" columns="3" cellpadding="5">
+						<h:selectOneMenu value="Show all">
+							<f:selectItem itemLabel="Show all" />
+							<f:selectItem itemLabel="Show inctive" itemValue="ind" />
+							<f:selectItem itemLabel="Show inactive" itemValue="uk" />
+							<f:selectItem itemLabel="Show invited" itemValue="us" />
+						</h:selectOneMenu>
+						<h:inputText value="search" readonly="true" />
+						<p:commandButton value="Addnew Member" type="button"
+							styleClass="team-button" onclick="PF('dlg1').show();" />
+						<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="100">
+							<h3>enter email to add</h3>
+							<p:separator />
+							<h:outputLabel value="Email"></h:outputLabel>
+							<p:inputText value="#{memberManagedBean.membersForEmail.email}" />
+							<h:panelGrid id="gridww" columns="3">
+								<p:commandButton value="CANCEL" type="button" />
+								<p:growl id="growl" />
+								<p:commandLink id="ADD" style="margin-left:90px;"
+									action="#{memberManagedBean.getEmail}">									
+									<h:outputText value="ADD" />
+									<p:ajax listener="#{memberManagedBean.getEmail}" update="myTable" />
+									<p:commandButton update="grid" />
+								</p:commandLink>
+							</h:panelGrid>
+						</p:dialog>
+					</h:panelGrid>
+					<p:dataTable var="members" id="myTable"
+						value="#{memberManagedBean.members}">
+						<p:column headerText="Name">
+							<h:outputText value="#{members.name}" />
+						</p:column>
+						<p:column headerText="Email Id">
+							<h:outputText value="#{members.email}" />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+				<p:tab title="Groups">
+					<p:dataTable var="group" value="#{groupManagedBean.groups}">
+						<p:column headerText="Group Name">
+							<h:outputText value="#{group.groupname}" />
+						</p:column>
+						<p:column headerText="Access">
+							<h:outputText value="#{group.access}" />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+				<p:tab title="Reminders"></p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

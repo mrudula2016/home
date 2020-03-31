@@ -19,7 +19,10 @@
 		<property name="DataSource" ref="DataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-			<value>office.timesheet.ui.TimesheetDto</value>
+				<!-- <value>office.timesheet.ui.TimesheetDto</value> -->
+				<value>office.timesheet.entity.UsersEntity</value>
+				<value>office.timesheet.entity.GroupsEntity</value>
+				<value>office.timesheet.entity.UserGroupsRelationEntity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -45,7 +48,8 @@
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver">
 		</property>
-		<property name="url" value="jdbc:mysql://localhost:3306/terry">
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/terry">
 		</property>
 		<property name="username" value="root"></property>
 		<property name="password" value="tiger"></property>
@@ -60,7 +64,13 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
+	<bean id="teamMemberServicemanagedbean" class="office.timesheet.service.TeamMemberService">
+		<property name="teamMemberDao" ref="memberDao"></property>
+	</bean>
 
+	<bean id="memberDao" class="office.timesheet.dao.TeamMemberDao">
+		<property name="sf" ref="SessionFactory"></property>
+	</bean>
 	<bean id="tss" class="office.timesheet.service.TimesheetService">
 		<property name="timesheetDao" ref="Dao"></property>
 	</bean>
@@ -68,6 +78,17 @@
 	<bean id="Dao" class="office.timesheet.dao.TimesheetDao">
 		<property name="sf" ref="SessionFactory"></property>
 	</bean>
+
+<bean id="teamgroupsServicemanagedbean" class="office.timesheet.service.TeamGroupService">
+		<property name="teamGroupDao" ref="dao"></property>
+	</bean>
+
+	<bean id="dao" class="office.timesheet.dao.TeamGroupDao">
+		<property name="sf" ref="SessionFactory"></property>
+	</bean>
+
+
+
 
 </beans>
  

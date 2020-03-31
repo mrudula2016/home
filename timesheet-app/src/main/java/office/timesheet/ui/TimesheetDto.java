@@ -9,7 +9,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @javax.persistence.Entity
-@Table(name = "timesheet")
+@Table(name = "timesheetuserregistration")
 @NamedQueries({ @NamedQuery(name = "timesht.fetchUserDetails", query = "SELECT timeshtDto "
 		+ "FROM TimesheetDto timeshtDto where timeshtDto.name= :uname")
 		// timesht.fetchUserDetails it a name we can give any thing
@@ -25,12 +25,13 @@ import javax.persistence.Table;
 public class TimesheetDto {
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@Column(unique = true ,nullable = false)
+	@Column(unique = false, nullable = true)
 	private String name;
 	private String emailId;
 	private String password;
+
 	public String getName() {
 		return name;
 	}

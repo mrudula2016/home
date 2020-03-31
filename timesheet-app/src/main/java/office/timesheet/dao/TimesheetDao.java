@@ -8,10 +8,11 @@ import office.timesheet.ui.TimesheetDto;
 
 public class TimesheetDao {
 	private SessionFactory sf;
+
 	public boolean addDataDao(TimesheetDto timesheetDto) {
-		TimesheetDto tsd =fetchDataDao(timesheetDto.getName());
-		
-		if (tsd !=null) {
+		TimesheetDto tsd = fetchDataDao(timesheetDto.getName());
+
+		if (tsd != null) {
 			System.out.println("same name");
 			return false;
 
@@ -34,10 +35,6 @@ public class TimesheetDao {
 		Query qry = session.getNamedQuery("timesht.fetchUserDetails");
 		qry.setParameter("uname", entryname);
 		TimesheetDto tDto = (TimesheetDto) qry.uniqueResult();
-		if (tDto != null) {
-			System.out.println(tDto.getPassword());
-			System.out.println(tDto.getName());
-		}
 		return tDto;
 	}
 }

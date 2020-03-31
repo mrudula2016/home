@@ -7,11 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <f:view contentType="text/html" id="fview">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Euro Hotels</title>
-	<!-- <ui:debug /> -->
-	<f:metadata>
-		<ui:insert name="metadata" />
-	</f:metadata>
+	<title>clockify</title>
 	<h:head>
 	<h:outputStylesheet name="css/theme.css" />
 		<p:layout fullPage="true" resizeTitle="resize"
@@ -40,13 +36,6 @@
 				</h:form>
 			</p:layoutUnit>
 		</p:layout>
-		<p:dialog modal="true" widgetVar="statusDialog" showHeader="false"
-			draggable="false" closable="false" resizable="false" visible="false"
-			position="center" maximizable="false" minimizable="false">
-			<p:graphicImage name="images/Clockify-logo1.jpg" /> 
-		</p:dialog>
 	</h:head>
-	<h:body onload="statusDialog.hide();">
-	</h:body>
 </f:view>
 </html>

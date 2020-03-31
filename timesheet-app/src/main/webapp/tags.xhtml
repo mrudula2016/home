@@ -1,0 +1,36 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="alltogether.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet name="home.css" library="css" />
+		<h:form id="testForm">
+			<p:tabView>
+				<p:tab title="SETTINGS">
+				</p:tab>
+				<p:tab title="TAGS">
+					<h:panelGrid id="grid" columns="3" cellpadding="5">
+						<h:selectOneMenu value="Show all">
+							<f:selectItem itemLabel="Show all" />
+							<f:selectItem itemLabel="Show inctive" itemValue="ind" />
+							<f:selectItem itemLabel="Show inactive" itemValue="uk" />
+							<f:selectItem itemLabel="Show invited" itemValue="us" />
+						</h:selectOneMenu>
+						<h:inputText value="Add new tag" readonly="true" />
+						<p:commandButton value="Add" type="button"
+							styleClass="team-button" onclick="PF('dlg1').show();" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="CLIENTS"></p:tab>
+				<p:tab title="ALERTS"></p:tab>
+				<p:tab title="ACCOUNTS"></p:tab>
+				<p:tab title="AUTHENTICATION"></p:tab>
+				<p:tab title="CUSTOM FIELDS"></p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

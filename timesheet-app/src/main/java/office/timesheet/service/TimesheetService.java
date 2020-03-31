@@ -32,6 +32,16 @@ public class TimesheetService {
 		}
 	}
 	
+	@Transactional
+	public boolean checkUserExistence(String name) {
+		TimesheetDto tDto = timesheetDao.fetchDataDao(name);
+		if (tDto !=null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 	@Transactional
 	public boolean getNameData(String name)
