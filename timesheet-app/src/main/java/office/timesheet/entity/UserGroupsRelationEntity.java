@@ -19,10 +19,15 @@ public class UserGroupsRelationEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int relationId;
 
-	@Column(name = "GROUP_ID")
-	private String GroupId;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	/*
+	 * @Column(name = "GROUP_ID") private int GroupId;
+	 */
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "GROUP_ID", nullable = false)
+	private GroupsEntity groupsEntity;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	private UsersEntity userEntity;
 
@@ -40,6 +45,14 @@ public class UserGroupsRelationEntity {
 
 	public void setUserEntity(UsersEntity userEntity) {
 		this.userEntity = userEntity;
+	}
+
+	public GroupsEntity getGroupsEntity() {
+		return groupsEntity;
+	}
+
+	public void setGroupsEntity(GroupsEntity groupsEntity) {
+		this.groupsEntity = groupsEntity;
 	}
 
 }

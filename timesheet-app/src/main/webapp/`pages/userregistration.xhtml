@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Clockify Registration page</title>
+</h:head>
+<p:panel id="TitlePanel">
+	<f:facet name="header" center="true">
+		<p:outputLabel value="#{pageTitle}" />
+	</f:facet>
+    welcome to clocify
+</p:panel>
+<h:body>
+<p:messages id="msgs" />
+	<h:form id="page">
+		<h:panelGrid columns="3" cellpadding="2" width="600px" style="margin-left:200px">
+			<h:outputLabel value="Name"></h:outputLabel>
+			<p:inputText id="name" value="#{teamManagedBean.usersEntity.name}"
+				required="true">
+				<f:validateLength minimum="3" maximum="10" />
+				<p:ajax event="keyup" update="showVal" listener="#{teamManagedBean.checkUser}" />
+			</p:inputText>
+			<h:outputLabel id="showVal" value="#{teamManagedBean.userNameError}"></h:outputLabel>
+			
+			<h:outputLabel value="Enter Email"></h:outputLabel>
+			<p:inputText id="ema" value="#{teamManagedBean.usersEntity.email}"></p:inputText>
+			<p:message for="ema" />
+			
+			<h:outputLabel value="hourlyl Rate"></h:outputLabel>
+			<p:password id="hr" value="#{teamManagedBean.usersEntity.hourlylRate}"></p:password>
+			<p:message for="hr" />
+			
+			<p:commandButton value="create free account" ajax="false"
+				action="#{teamManagedBean.userRegistrationDetails}" />
+			<p:commandButton value="continue with google"
+				action="#{teamManagedBean.userRegistrationDetails}" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

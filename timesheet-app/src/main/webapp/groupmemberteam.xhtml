@@ -1,0 +1,123 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="alltogether.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet name="home.css" library="css" />
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			<p:tabView>
+				<p:tab title="Groups">
+					<h:panelGrid id="gridww" columns="3">
+						<h:outputLabel value="Enter Group name"></h:outputLabel>
+						<p:inputText id="ema"
+							value="#{teamsManagedBean.groupsEntity1.groupName}"></p:inputText>
+						<p:commandButton value="ADD" action="#{teamsManagedBean.addGroup}"
+							update="myTable1" />
+					</h:panelGrid>
+					<p:dataTable id="myTable1" var="group"
+						value="#{teamsManagedBean.groupsEntity}" editable="true"
+						style="margin-bottom:20px">
+						<p:ajax event="rowEdit" listener="#{teamsManagedBean.onRowEdit}" />
+						<p:column headerText="Group Name">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{group.groupName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText id="modelInput" value="#{group.groupName}"
+										style="width:50%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column headerText="Action">
+							<p:column style="width:90px">
+								<p:rowEditor />
+								<f:facet name="header">Action</f:facet>
+
+								<h:commandButton value="Delete"
+									action="#{teamsManagedBean.deleteAction(group)}">
+								</h:commandButton>
+
+							</p:column>
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+				<p:tab title="Members">
+					<h:panelGrid id="grid" columns="3" cellpadding="5">
+						<h:selectOneMenu value="Show all">
+							<f:selectItem itemLabel="Show all" />
+							<f:selectItem itemLabel="Show inctive" itemValue="ind" />
+							<f:selectItem itemLabel="Show inactive" itemValue="uk" />
+							<f:selectItem itemLabel="Show invited" itemValue="us" />
+						</h:selectOneMenu>
+						<h:inputText value="search" sortBy="#{groups.groupName}" />
+						<p:commandButton value="Addnew Member" type="button"
+							styleClass="team-button" onclick="PF('dlg1').show();" />
+						<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="800"
+							showEffect="fade" hideEffect="fade" resizable="false">
+							<h3>enter email to add</h3>
+							<p:separator />
+							<h:outputLabel value="Email"></h:outputLabel>
+							<p:inputText value="#{teamsManagedBean.usersEntity.email}" />
+							<h:panelGrid id="gridwwk" columns="3">
+								<p:commandButton value="CANCEL" type="button" />
+								<p:commandButton value="ADD"
+									action="#{teamsManagedBean.addMember}" update="myTable" />
+							</h:panelGrid>
+						</p:dialog>
+					</h:panelGrid>
+					<p:dataTable var="members" value="#{teamsManagedBean.usersEntity1}"
+						editable="true" id="myTable" widgetVar="carsTable2"
+						emptyMessage="No records found"
+						filteredValue="#{teamsManagedBean.filteredUsers}"
+						globalFilterFunction="#{teamsManagedBean.globalFilterFunction}">
+						<f:facet name="header">
+							<p:outputPanel>
+								<h:outputText
+									value="Search by name or email:" />
+								<p:inputText id="globalFilter"
+									onkeyup="PF('carsTable2').filter()" style="width:150px"
+									placeholder="Enter keyword" />
+							</p:outputPanel>
+						</f:facet>
+						<p:ajax event="rowEdit"
+							listener="#{teamsManagedBean.onMemberEdit}" />
+						<p:column headerText="Name">
+							<h:outputText value="#{members.name}" />
+						</p:column>
+						<p:column headerText="Email Id">
+							<h:outputText value="#{members.email}" />
+						</p:column>
+						<p:column headerText="Hourly Rate">
+							<h:outputText value="#{members.hourlylRate}" />
+						</p:column>
+						<p:column headerText="ACCESS">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{members.userAccessList}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:selectCheckboxMenu id="menu"
+										value="#{members.selectedGroupEntity}"
+										label="addgroups" filter="true" filterMatchMode="startsWith"
+										panelStyle="width:250px">
+										<f:selectItems value="#{teamsManagedBean.groupsEntity}"
+											var="groups" itemLabel="#{groups.groupName}"
+											itemValue="#{groups.id}" />
+									</p:selectCheckboxMenu>
+								</f:facet>
+							</p:cellEditor>
+							<p:rowEditor />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+				<p:tab title="Reminders"></p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

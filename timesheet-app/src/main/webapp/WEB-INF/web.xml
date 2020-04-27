@@ -30,7 +30,10 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>hot-sneaks</param-value>
+	</context-param>  
 	<!-- Mapping with servlet and url for the http requests. -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>

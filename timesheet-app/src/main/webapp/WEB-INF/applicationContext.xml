@@ -19,7 +19,6 @@
 		<property name="DataSource" ref="DataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-				<!-- <value>office.timesheet.ui.TimesheetDto</value> -->
 				<value>office.timesheet.entity.UsersEntity</value>
 				<value>office.timesheet.entity.GroupsEntity</value>
 				<value>office.timesheet.entity.UserGroupsRelationEntity</value>
@@ -64,30 +63,21 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
-	<bean id="teamMemberServicemanagedbean" class="office.timesheet.service.TeamMemberService">
-		<property name="teamMemberDao" ref="memberDao"></property>
+
+	<bean id="userRegistrationService" class="office.timesheet.service.UserRegistrationService">
+		<property name="userRegistrationDao" ref="RegistrationDao"></property>
 	</bean>
 
-	<bean id="memberDao" class="office.timesheet.dao.TeamMemberDao">
-		<property name="sf" ref="SessionFactory"></property>
-	</bean>
-	<bean id="tss" class="office.timesheet.service.TimesheetService">
-		<property name="timesheetDao" ref="Dao"></property>
+	<bean id="RegistrationDao" class="office.timesheet.dao.UserRegistrationDao">
+		<property name="sessionFactory" ref="SessionFactory"></property>
 	</bean>
 
-	<bean id="Dao" class="office.timesheet.dao.TimesheetDao">
-		<property name="sf" ref="SessionFactory"></property>
+	<bean id="teamsService" class="office.timesheet.service.TeamsService">
+		<property name="teamsDao" ref="teamDao"></property>
 	</bean>
-
-<bean id="teamgroupsServicemanagedbean" class="office.timesheet.service.TeamGroupService">
-		<property name="teamGroupDao" ref="dao"></property>
+	<bean id="teamDao" class="office.timesheet.dao.TeamsDao">
+		<property name="sessionFactory" ref="SessionFactory"></property>
 	</bean>
-
-	<bean id="dao" class="office.timesheet.dao.TeamGroupDao">
-		<property name="sf" ref="SessionFactory"></property>
-	</bean>
-
-
 
 
 </beans>

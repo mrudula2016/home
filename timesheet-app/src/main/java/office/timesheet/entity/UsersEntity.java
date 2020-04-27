@@ -8,11 +8,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "USERS")
+@NamedQueries({ @NamedQuery(name = "usersEntity.fetchUserDetails", query = "SELECT user "
+		+ "FROM UsersEntity user where user.name= :uname")})
 public class UsersEntity {
 
 	@Id
@@ -32,10 +37,14 @@ public class UsersEntity {
 	@Column(name = "HOURLY_RATE")
 	private int hourlylRate;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userEntity")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userEntity")
 	private Set<UserGroupsRelationEntity> memberGroupRel;
 	
-
+	@Transient
+	private int[] selectedGroupEntity;
+	
+	@Transient
+private String userAccessList;
 	public int getUserId() {
 		return userId;
 	}
@@ -75,5 +84,47 @@ public class UsersEntity {
 	public void setMemberGroupRel(Set<UserGroupsRelationEntity> memberGroupRel) {
 		this.memberGroupRel = memberGroupRel;
 	}
+
+	public int getHourlylRate() {
+		return hourlylRate;
+	}
+
+	public void setHourlylRate(int hourlylRate) {
+		this.hourlylRate = hourlylRate;
+	}
+
+	public String getUserAccessList() {
+		for (UserGroupsRelationEntity ue : memberGroupRel) {
+			System.out.println(ue.getGroupsEntity().getGroupName());
+			
+			if (userAccessList == null) {
+				userAccessList = ue.getGroupsEntity().getGroupName();
+			} else {
+				userAccessList= userAccessList+","+ue.getGroupsEntity().getGroupName();
+			}
+		}
+		
+		
+		return userAccessList;
+	}
+
+	public void setUserAccessList(String userAccessList) {
+		this.userAccessList = userAccessList;
+	}
+
+	public int[] getSelectedGroupEntity() {
+		int i=0;
+		selectedGroupEntity = new int[memberGroupRel.size()]; 
+		for (UserGroupsRelationEntity ue : memberGroupRel) {
+			selectedGroupEntity[i] = ue.getGroupsEntity().getId();
+			i++;
+		}
+		return selectedGroupEntity;
+	}
+
+	public void setSelectedGroupEntity(int[] selectedGroupEntity) {
+		this.selectedGroupEntity = selectedGroupEntity;
+	}
+	
 
 }

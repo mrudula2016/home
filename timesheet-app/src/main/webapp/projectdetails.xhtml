@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="alltogether.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet name="home.css" library="css" />
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			<p:tabView>
+				<p:tab title="Groups">
+					<h:panelGrid id="gridww" columns="3">
+						<h:outputLabel value="Enter project name"></h:outputLabel>
+						<p:commandButton value="ADD Project" />
+					</h:panelGrid>
+					</p:tab>
+					</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>
