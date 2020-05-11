@@ -22,6 +22,10 @@
 				<value>office.timesheet.entity.UsersEntity</value>
 				<value>office.timesheet.entity.GroupsEntity</value>
 				<value>office.timesheet.entity.UserGroupsRelationEntity</value>
+				<value>office.timesheet.entity.ProjectDetailsEntity</value>
+				<value>office.timesheet.entity.ProjectAllocation</value>
+				<value>office.timesheet.entity.TimeTrackerEntity</value>
+				<value>office.timesheet.entity.UserRolesEntity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -64,21 +68,54 @@
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
 
-	<bean id="userRegistrationService" class="office.timesheet.service.UserRegistrationService">
-		<property name="userRegistrationDao" ref="RegistrationDao"></property>
+	<bean id="userRegistrationService"
+		class="office.timesheet.service.UserRegistrationService">
+		<property name="userRegistrationDao" ref="registrationDao"></property>
 	</bean>
 
-	<bean id="RegistrationDao" class="office.timesheet.dao.UserRegistrationDao">
+	<bean id="registrationDao"
+		class="office.timesheet.dao.UserRegistrationDao">
 		<property name="sessionFactory" ref="SessionFactory"></property>
 	</bean>
 
-	<bean id="teamsService" class="office.timesheet.service.TeamsService">
+	<bean id="teamsService"
+		class="office.timesheet.service.TeamsService">
 		<property name="teamsDao" ref="teamDao"></property>
 	</bean>
 	<bean id="teamDao" class="office.timesheet.dao.TeamsDao">
 		<property name="sessionFactory" ref="SessionFactory"></property>
 	</bean>
+	<bean id="projectService"
+		class="office.timesheet.service.ProjectService">
+		<property name="projectDao" ref="projectDao"></property>
+		<property name="userRegistrationDao" ref="registrationDao"></property>
+	</bean>
+	<bean id="projectDao" class="office.timesheet.dao.ProjectDao">
+		<property name="sessionFactory" ref="SessionFactory"></property>
+	</bean>
 
+	<bean id="timeTrackerService"
+		class="office.timesheet.service.TimeTrackerService">
+		<property name="timeTrackerDao" ref="timeTrackerDao"></property>
 
+	</bean>
+	<bean id="timeTrackerDao"
+		class="office.timesheet.dao.TimeTrackerDao">
+		<property name="sessionFactory" ref="SessionFactory"></property>
+	</bean>
+	
+	
+	<bean id="timesheetMainService"
+		class="office.timesheet.service.TimesheetMainService">
+		<property name="timeSheetMainDao" ref="timeSheetMainDao"></property>
+		
+	</bean>
+	<bean id="timeSheetMainDao"
+		class="office.timesheet.dao.TimeSheetMainDao">
+		<property name="sessionFactory" ref="SessionFactory"></property>
+	</bean>
+	
+	
+	
 </beans>
  

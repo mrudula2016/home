@@ -7,16 +7,154 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:outputStylesheet name="home.css" library="css" />
-		<h:form id="form">
-			<p:growl id="msgs" showDetail="true" />
-			<p:tabView>
-				<p:tab title="Groups">
-					<h:panelGrid id="gridww" columns="3">
-						<h:outputLabel value="Enter project name"></h:outputLabel>
-						<p:commandButton value="ADD Project" />
-					</h:panelGrid>
-					</p:tab>
-					</p:tabView>
+		<h:form id="projectDetailsform">
+			<p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+			<h:panelGrid id="gridww" columns="9">
+				<h:outputLabel value="Project Name"></h:outputLabel>
+				<p:inputText id="name"
+					value="#{projectManagedBean.projectDetailsEntity.projectName}" />
+				<h:outputLabel value="Manager Name" />
+				<p:inputText id="managername"
+					value="#{projectManagedBean.projectDetailsEntity.userEntity}" />
+
+
+				<p:outputLabel for="inline" value="Start Date" />
+				<p:calendar id="inline"
+					value="#{projectManagedBean.projectDetailsEntity.startDate}" 
+					mode="popup" />
+
+				<p:outputLabel for="inlineend" value="End Date" />
+				<p:calendar id="inlineend"
+					value="#{projectManagedBean.projectDetailsEntity.endDate}" 
+					mode="popup" />
+				<p:commandButton value="ADD"
+					action="#{projectManagedBean.addProject}" update="myTable" />
+			</h:panelGrid>
+			<p:dataTable id="myTable" var="project"
+				value="#{projectManagedBean.projectDetailsEntityList}"
+				selection="#{projectManagedBean.projectDetailsSeclection}"
+				rowKey="#{project.projectName}" style="margin-bottom:20px">
+				<p:ajax event="rowEdit" listener="#{projectManagedBean.onRowEdit}" />
+				<f:facet name="header">
+           Project Allocation
+        </f:facet>
+				<p:column selectionMode="multiple"
+					style="width:16px;text-align:center" />
+				<p:column headerText="Project Name">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{project.projectName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput11" value="#{project.projectName}"
+								style="width:50%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Start Date">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{project.startDate}">
+<!-- 								<f:convertDateTime pattern="dd-MM-yyyy" /> -->
+							</h:outputText>
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{project.startDate}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="End Date">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{project.endDate}">
+<!-- 								<f:convertDateTime pattern="dd-MM-yyyy" /> -->
+							</h:outputText>
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{project.endDate}" style="width:50%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Action">
+					<p:column style="width:90px">
+						<p:rowEditor />
+						<f:facet name="header">Action</f:facet>
+					</p:column>
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton process="myTable"
+						actionListener="#{projectManagedBean.fetchUserAndProject}"
+						update=":mainForm:projectDetailsform:projectdialog :mainForm:projectDetailsform:dialogtable"
+						value="Assign Project to Employee"
+						oncomplete="PF('multiCarDialog').show()" />
+				</f:facet>
+			</p:dataTable>
+
+			<p:dialog header="Assign Project" widgetVar="multiCarDialog"
+				showEffect="fade" hideEffect="fade" resizable="true" width="1000"
+				height="1000" style="text-align:center">
+
+				<h:panelGrid id="doalog" columns="4">
+					<h3>Projects</h3>
+					<p:panel id="sports">
+						<p:outputPanel id="projectdialog" style="text-align:center">
+							<ui:repeat value="#{projectManagedBean.projectDetailsSeclection}"
+								var="project">
+								<h:outputText value="#{project.projectName}" />
+								<p:separator />
+							</ui:repeat>
+						</p:outputPanel>
+					</p:panel>
+				</h:panelGrid>
+
+				<h:panelGrid id="doalog2" columns="11">
+					<h:outputLabel value="Employee Name"></h:outputLabel>
+					<p:outputLabel value="	" for="acSimple" />
+					<p:autoComplete id="acSimple"
+						value="#{projectManagedBean.selectedUser}"
+						completeMethod="#{projectManagedBean.testMethod}" />
+					<p:outputLabel for="inlineqq" value="Start Date" />
+					<p:calendar id="inlineqq"
+						value="#{projectManagedBean.selectedStartDate}" mode="popup" />
+					<p:outputLabel for="inlineqqyy" value="End Date" />
+					<p:calendar id="inlineqqyy"
+						value="#{projectManagedBean.selectedEndDate}" mode="popup" />
+
+					<p:commandButton value="ADD" update="dialogtable"
+						action="#{projectManagedBean.addProjectAndUser}" />
+				</h:panelGrid>
+
+				<h:panelGrid id="doalog3" columns="4">
+				<p:messages autoUpdate="true" id="dlgmsgs" showDetail="false"
+						showSummary="true" />
+					<p:dataTable id="dialogtable" var="projecanduser"
+						value="#{projectManagedBean.usersAndProjectsSeclections}">
+						<p:column headerText="Employee">
+							<h:outputText value="#{projecanduser.userEntity.name}" />
+						</p:column>
+						<p:column headerText="Projects">
+							<h:outputText
+								value="#{projecanduser.projectDetailsEntity.projectName}" />
+						</p:column>
+						<p:column headerText="Start Date">
+							<h:outputText value="#{projecanduser.startDate}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="End Date">
+							<h:outputText value="#{projecanduser.endDate}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+
+			</p:dialog>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

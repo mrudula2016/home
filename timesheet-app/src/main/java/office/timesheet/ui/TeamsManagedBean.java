@@ -7,7 +7,6 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.model.SelectItem;
 
 import org.primefaces.event.RowEditEvent;
 
@@ -27,14 +26,16 @@ public class TeamsManagedBean {
 	private GroupsEntity groupsEntity1 = new GroupsEntity();
 	private ArrayList<UsersEntity> usersEntity1;
 	private List<UsersEntity> filteredUsers;
+	
 
-	private int[] selectedGroupEntity = {2,3};
+	private int[] selectedGroupEntity;
+	
+	private String userAccessList;
 
 	@PostConstruct
 	public void init() {
 		fetchGroups();
 		fetchMembers();
-		//fetchGroupAssociatedData();
 	}
 
 	public TeamsService getTeamsService() {
@@ -109,12 +110,14 @@ public class TeamsManagedBean {
 	}
 
 	public void deleteAction(GroupsEntity ee) {
-		// groupsEntity.remove(ee);
-
 		teamsService.deleteAction(ee);
 		fetchGroups();
 
 	}
+//	public void getGroupID(int[] selectedGroupEntity)
+//	{
+//		teamsService.getGroupID(selectedGroupEntity);
+//	}
 
 	public int[] getSelectedGroupEntity() {
 		return selectedGroupEntity;
@@ -125,11 +128,22 @@ public class TeamsManagedBean {
 	}
 
 	public void onMemberEdit(RowEditEvent event) {
-		UsersEntity gE = (UsersEntity) event.getObject();
-		int k = gE.getUserId();
-		for (int i = 0; i < gE.getSelectedGroupEntity().length; i++) {
-			teamsService.updateGroup(k, gE.getSelectedGroupEntity()[i]);
+		UsersEntity ue = (UsersEntity) event.getObject();
+		UserGroupsRelationEntity ugre = new UserGroupsRelationEntity();
+		ugre.setUserEntity(ue);
+		
+		//teamsService.getGroupID(selectedGroupEntity);
+		//ArrayList<GroupsEntity> agge = teamsService.getGroupID(selectedGroupEntity);
+//		for (GroupsEntity groupsEntity : agge) {
+//			ugre.setGroupsEntity(groupsEntity);
+//			teamsService.groupAssociatedData(ugre);
+//		}
+		
+		for (int i = 0; i < selectedGroupEntity.length; i++) {
+			ugre.setGroupsEntity(teamsService.getGroudEntityWithID(selectedGroupEntity[i]));
+			teamsService.groupID(ugre);
 		}
+
 	}
 
 	private int getInteger(String string) {
@@ -148,8 +162,9 @@ public class TeamsManagedBean {
 		int filterInt = getInteger(filterText);
 
 		UsersEntity car = (UsersEntity) value;
-		return  car.getName().toLowerCase().contains(filterText)
-				|| car.getEmail().toLowerCase().contains(filterText) || car.getHourlylRate() < filterInt;
+		return car.getName().toLowerCase().contains(filterText);
+//		car.getEmail().toLowerCase().contains(filterText)
+//		|| car.getHourlylRate() < filterInt;
 	}
 
 	public List<UsersEntity> getFilteredUsers() {
@@ -159,8 +174,10 @@ public class TeamsManagedBean {
 	public void setFilteredUsers(List<UsersEntity> filteredUsers) {
 		this.filteredUsers = filteredUsers;
 	}
-	public void fetchGroupAssociatedData() {
-		ArrayList<UserGroupsRelationEntity> aa=new ArrayList<UserGroupsRelationEntity>();
-		aa=teamsService.fetchGroupAssociatedData();
+
+	public void setUserAccessList(String userAccessList) {
+		this.userAccessList = userAccessList;
 	}
+
+
 }

@@ -1,5 +1,7 @@
 package office.timesheet.dao;
 
+import java.util.ArrayList;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +12,7 @@ import office.timesheet.entity.UsersEntity;
 public class UserRegistrationDao {
 	private SessionFactory sessionFactory;
 
-	public boolean userRegistrationDetails(UsersEntity userEntity) {
+	public boolean registerUser(UsersEntity userEntity) {
 		UsersEntity ut = fetchUserDetails(userEntity.getName());
 
 		if (ut != null) {
@@ -29,6 +31,14 @@ public class UserRegistrationDao {
 		Query qry = session.getNamedQuery("usersEntity.fetchUserDetails");
 		qry.setParameter("uname", entryname);
 		UsersEntity users = (UsersEntity) qry.uniqueResult();
+		return users;
+
+	}
+	
+	public ArrayList<UsersEntity> fetchUserIdName() {
+		Session session = sessionFactory.getCurrentSession();
+		Query qry = session.getNamedQuery("usersEntity.fetchUserIdName");
+		 ArrayList<UsersEntity> users =  (ArrayList<UsersEntity>) qry.list();
 		return users;
 
 	}

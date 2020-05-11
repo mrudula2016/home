@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="alltogether.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet name="home.css" library="css" />
+		<h:form id="timetrackerform">
+			<h:panelGrid id="timetrack">
+				<p:growl id="timetracker" showDetail="true" />
+				<h:panelGrid id="time" columns="5">
+					<p:outputLabel for="selectdate" value="Select Date" />
+					<p:calendar id="selectdate"
+						value="#{timeTrackerManagedBean.selectedDate}" mode="popup">
+						<p:ajax event="dateSelect"
+							listener="#{timeTrackerManagedBean.populateWeekLebels}"
+							update="dialogtable" />
+					</p:calendar>
+					<p:selectCheckboxMenu id="menu11"
+						value="#{timeTrackerManagedBean.selectedProjects}"
+						label="Projects" filter="true" filterMatchMode="startsWith"
+						panelStyle="width:250px">
+						<f:selectItems value="#{timeTrackerManagedBean.projectsList}"
+							var="proj" itemLabel="#{proj.projectName}"
+							itemValue="#{proj.projectName}" />
+					</p:selectCheckboxMenu>
+					<p:commandButton value="ADD" update="dialogtable"
+						action="#{timeTrackerManagedBean.project}" />
+				</h:panelGrid>
+
+				<p:dataTable id="dialogtable" var="project"
+					value="#{timeTrackerManagedBean.selectedProjects}">
+					<p:column headerText="Project Wroked">
+						<h:outputText value="#{timeTrackerManagedBean.selectedProjects}">
+						</h:outputText>
+					</p:column>
+					<p:column
+						headerText="SUN-#{timeTrackerManagedBean.timesheetLabelDTO.sunday}">
+						<h:outputText value="#{timeTrackerManagedBean.selectedProjects}">
+						</h:outputText>
+					</p:column>
+					<p:column
+						headerText="MON-#{timeTrackerManagedBean.timesheetLabelDTO.monday}">
+						<h:outputText value="#{timeTrackerManagedBean.selectedProjects}">
+						</h:outputText>
+					</p:column>
+					<p:column
+						headerText="TUE-#{timeTrackerManagedBean.timesheetLabelDTO.tuesday}">
+						<h:outputText value="#{timeTrackerManagedBean.selectedProjects}">
+						</h:outputText>
+					</p:column>
+					<p:column
+						headerText="WED-#{timeTrackerManagedBean.timesheetLabelDTO.wednesday}">
+						<h:outputText value="#{timeTrackerManagedBean.selectedProjects}">
+						</h:outputText>
+					</p:column>
+					<p:column
+						headerText="THR-#{timeTrackerManagedBean.timesheetLabelDTO.thursday}">
+						<h:outputText value="#{timeTrackerManagedBean.selectedProjects}">
+						</h:outputText>
+					</p:column>
+					<p:column
+						headerText="FRI-#{timeTrackerManagedBean.timesheetLabelDTO.friday}">
+						<h:outputText value="#{timeTrackerManagedBean.selectedProjects}">
+						</h:outputText>
+					</p:column>
+					<p:column
+						headerText="SAT-#{timeTrackerManagedBean.timesheetLabelDTO.saturday}">
+						<h:outputText value="#{timeTrackerManagedBean.selectedProjects}">
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+				<p:dataList id="cc"
+					value="#{timeTrackerManagedBean.selectedProjects}" var="city"
+					emptyMessage="No cities selected" style="margin-bottom: 10px;">
+					<f:facet name="header">
+                    Choosed Projects
+                </f:facet>
+                #{city}
+            </p:dataList>
+
+				<p:commandButton value="Save"
+					action="#{timeTrackerManagedBean.timeTrackerDetails}" />
+				<p:commandButton value="Save for Later" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

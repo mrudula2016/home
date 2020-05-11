@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>User Registration</title>
+</h:head>
+<h:body>
+	<form action="#{request.contextPath}/j_spring_security_check"
+		method="post">
+		<h:panelGrid styleClass="centered tight-grid" columns="2">
+			<p:outputLabel>UserName</p:outputLabel>
+			<input type="text" id="j_username" name="j_username" required="required" />
+			<p:outputLabel>Password</p:outputLabel>
+			<input type="password" id="j_password" name="j_password"
+				required="required" />
+		</h:panelGrid>
+		<h:panelGrid>
+			<button type="submit">
+				<span class="ui-button-text">Login</span>
+			</button>
+		</h:panelGrid>
+	</form>
+</h:body>
+</html>

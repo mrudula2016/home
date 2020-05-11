@@ -8,20 +8,25 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GROUP_ENT")
+@Table(name = "GROUPS")
+@NamedQueries({
+		@NamedQuery(name = "groupsEntity.getGroudEntityWithID", query = "SELECT groupid "
+				+ "FROM GroupsEntity groupid where groupid.id= :id")})
 public class GroupsEntity {
 	@Id
 	@Column(name = "GROUP_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name = "GROUP_NAME", unique = true, nullable = false)
+	@Column(name = "GROUP_NAME", unique = true, nullable = true)
 	private String groupName;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "groupsEntity")
 	private Set<UserGroupsRelationEntity> memberGroupRel;
 

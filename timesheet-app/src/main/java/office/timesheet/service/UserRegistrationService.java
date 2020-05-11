@@ -17,8 +17,8 @@ public class UserRegistrationService {
 	}
 
 	@Transactional
-	public boolean userRegistrationDetails(UsersEntity usersEntity) {
-		Boolean Result = userRegistrationDao.userRegistrationDetails(usersEntity);
+	public boolean registerUser(UsersEntity usersEntity) {
+		Boolean Result = userRegistrationDao.registerUser(usersEntity);
 		return Result;
 	}
 
@@ -51,4 +51,5 @@ public class UserRegistrationService {
 			return false;
 		}
 	}
+	
 }

@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
@@ -18,10 +20,6 @@ public class UserGroupsRelationEntity {
 	@Column(name = "RELATION_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int relationId;
-
-	/*
-	 * @Column(name = "GROUP_ID") private int GroupId;
-	 */
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "GROUP_ID", nullable = false)

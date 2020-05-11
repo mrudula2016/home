@@ -16,7 +16,7 @@
 	<h:form id="page">
 		<h:panelGrid columns="3" cellpadding="2" width="600px" style="margin-left:200px">
 			<h:outputLabel value="Name"></h:outputLabel>
-			<p:inputText id="name" value="#{teamManagedBean.usersEntity.name}"
+			<p:inputText id="name" value="#{teamManagedBean.usersEntity.userId}}"
 				required="true">
 				<f:validateLength minimum="3" maximum="10" />
 				<p:ajax event="keyup" update="showVal" listener="#{teamManagedBean.checkUser}" />

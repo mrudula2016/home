@@ -1,24 +1,20 @@
 package office.timesheet.dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import antlr.collections.List;
 import office.timesheet.entity.GroupsEntity;
+import office.timesheet.entity.ProjectAllocation;
 import office.timesheet.entity.UserGroupsRelationEntity;
 import office.timesheet.entity.UsersEntity;
 
 public class TeamsDao {
 	private SessionFactory sessionFactory;
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
 	public ArrayList<GroupsEntity> fetchGroups() {
 		Session session = sessionFactory.getCurrentSession();
@@ -53,16 +49,16 @@ public class TeamsDao {
 		userGroupsRelationEntity.setGroupsEntity(groupsEntity);
 		userGroupsRelationEntity.setUserEntity(usersEntity);
 		sessionFactory.getCurrentSession().save(userGroupsRelationEntity);
-		System.out.println("done");
+
 	}
 
 	public ArrayList<UsersEntity> fetchMembers() {
 		Session session = sessionFactory.getCurrentSession();
 		ArrayList<UsersEntity> membersInfo = (ArrayList<UsersEntity>) session
 				.createQuery("select pur from UsersEntity pur").list();
-		
+
 		return membersInfo;
-		
+
 	}
 
 	public void onRowEdit(GroupsEntity groupsEntity) {
@@ -72,24 +68,39 @@ public class TeamsDao {
 
 	public void deleteAction(GroupsEntity ee) {
 		sessionFactory.getCurrentSession().delete(ee);
-
 	}
 
-	public ArrayList<UserGroupsRelationEntity> fetchGroupAssociatedData() {
+	public GroupsEntity getGroudEntityWithID(int i) {
 		Session session = sessionFactory.getCurrentSession();
-		ArrayList<UserGroupsRelationEntity> membersInfo = (ArrayList<UserGroupsRelationEntity>) session
-				.createQuery("select pir from UserGroupsRelationEntity pir").list();
-		for(UserGroupsRelationEntity u:membersInfo)
-		{
-//			System.out.println(u.getGroupsEntity().getGroupName());
-//			System.out.println(u.getUserEntity().getName());
-			if(u.getUserEntity().getMemberGroupRel()==u.getGroupsEntity().getMemberGroupRel());
-			{
-			System.out.println("yes");
-			}
-		}
-		return null;
+		Query query = session.getNamedQuery("groupsEntity.getGroudEntityWithID");
+		query.setParameter("id", i);
+		GroupsEntity groupdEntity = (GroupsEntity) query.uniqueResult();
+		return groupdEntity;
 
 	}
 
+	public void groupID(UserGroupsRelationEntity ugre) {
+		sessionFactory.getCurrentSession().save(ugre);
+	}
+
+//	public ArrayList<GroupsEntity> getGroupID(int[] selectedGroupEntity) {
+//
+//		ArrayList<Integer> list2 = new ArrayList<Integer>();
+//		for (int i = 0; i < selectedGroupEntity.length; i++) {
+//			list2.add(selectedGroupEntity[i]);
+//		}
+//		Session session = sessionFactory.getCurrentSession();
+//		Query query = session.getNamedQuery("groupsEntity.getGroupID");
+//		 query.setParameter("groupsIDs", list2);
+//		ArrayList<GroupsEntity> groups = (ArrayList<GroupsEntity>) query.list();
+//	 return groups;
+//	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 }

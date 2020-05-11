@@ -55,7 +55,7 @@
 							<f:selectItem itemLabel="Show inactive" itemValue="uk" />
 							<f:selectItem itemLabel="Show invited" itemValue="us" />
 						</h:selectOneMenu>
-						<h:inputText value="search" sortBy="#{groups.groupName}" />
+						<h:inputText value="search" sortBy="#{usersEntity.name}" />
 						<p:commandButton value="Addnew Member" type="button"
 							styleClass="team-button" onclick="PF('dlg1').show();" />
 						<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="800"
@@ -72,25 +72,25 @@
 						</p:dialog>
 					</h:panelGrid>
 					<p:dataTable var="members" value="#{teamsManagedBean.usersEntity1}"
-						editable="true" id="myTable" widgetVar="carsTable2"
+						editable="true" id="myTable" widgetVar="myTable"
 						emptyMessage="No records found"
 						filteredValue="#{teamsManagedBean.filteredUsers}"
 						globalFilterFunction="#{teamsManagedBean.globalFilterFunction}">
 						<f:facet name="header">
 							<p:outputPanel>
-								<h:outputText
-									value="Search by name or email:" />
-								<p:inputText id="globalFilter"
-									onkeyup="PF('carsTable2').filter()" style="width:150px"
-									placeholder="Enter keyword" />
+								<h:outputText value="Search by name or email:" />
+								<p:inputText id="globalFilter" onkeyup="PF('myTable').filter()"
+									style="width:150px" placeholder="Enter keyword" />
 							</p:outputPanel>
 						</f:facet>
 						<p:ajax event="rowEdit"
 							listener="#{teamsManagedBean.onMemberEdit}" />
-						<p:column headerText="Name">
+						<p:column filterBy="#{members.name}" headerText="Name"
+							filterMatchMode="contains">
 							<h:outputText value="#{members.name}" />
 						</p:column>
-						<p:column headerText="Email Id">
+						<p:column filterBy="#{members.email}" headerText="Email Id"
+						filterMatchMode="contains">
 							<h:outputText value="#{members.email}" />
 						</p:column>
 						<p:column headerText="Hourly Rate">
@@ -99,12 +99,12 @@
 						<p:column headerText="ACCESS">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{members.userAccessList}" />
+									<h:outputText value="#{teamsManagedBean.usersEntity.userAccessList}" />
 								</f:facet>
 								<f:facet name="input">
 									<p:selectCheckboxMenu id="menu"
-										value="#{members.selectedGroupEntity}"
-										label="addgroups" filter="true" filterMatchMode="startsWith"
+										value="#{teamsManagedBean.selectedGroupEntity}" label="addgroups"
+										filter="true" filterMatchMode="startsWith"
 										panelStyle="width:250px">
 										<f:selectItems value="#{teamsManagedBean.groupsEntity}"
 											var="groups" itemLabel="#{groups.groupName}"

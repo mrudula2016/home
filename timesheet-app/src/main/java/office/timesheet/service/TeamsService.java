@@ -14,6 +14,7 @@ import office.timesheet.entity.UsersEntity;
 
 public class TeamsService {
 	private TeamsDao teamsDao;
+	
 
 	public TeamsDao getTeamsDao() {
 		return teamsDao;
@@ -53,7 +54,6 @@ public class TeamsService {
 		ArrayList<GroupsEntity> gp = teamsDao.fetchGroups();
 		return gp;
 
-		
 	}
 
 	@Transactional
@@ -72,9 +72,21 @@ public class TeamsService {
 	public void deleteAction(GroupsEntity ee) {
 		teamsDao.deleteAction(ee);
 	}
+
 	@Transactional
-	public ArrayList<UserGroupsRelationEntity> fetchGroupAssociatedData() {
-		ArrayList<UserGroupsRelationEntity> aa=	teamsDao.fetchGroupAssociatedData();
-		return aa;
+	public GroupsEntity getGroudEntityWithID(int i) {
+		return teamsDao.getGroudEntityWithID(i);
 	}
+
+	@Transactional
+	public void groupID(UserGroupsRelationEntity ugre) {
+		teamsDao.groupID(ugre);
+	}
+	
+	//@Transactional
+//	public ArrayList<GroupsEntity> getGroupID(int[] selectedGroupEntity)
+//	{
+//		ArrayList<GroupsEntity> group=teamsDao.getGroupID(selectedGroupEntity);
+//		return group;
+//	}
 }

@@ -34,7 +34,8 @@ public class UserRegistration {
 	}
 
 	public void userRegistrationDetails() throws IOException {
-		Boolean result = userRegistrationService.userRegistrationDetails(usersEntity);
+		usersEntity.setEnabled(true);
+		Boolean result = userRegistrationService.registerUser(usersEntity);
 		if (!result) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User name already exists ", null));
